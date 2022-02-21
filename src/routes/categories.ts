@@ -17,8 +17,7 @@ categoriesRoutes.post("/categories",(req, res)=>{
 
 
 categoriesRoutes.get("/categories",(req,res)=>{
-
-     return listCategoriesController.handle(req,res)
+ return listCategoriesController.handle(req,res)
 })
 
 categoriesRoutes.post("/categories/import",upload.single("file"), (request, response)=>{
