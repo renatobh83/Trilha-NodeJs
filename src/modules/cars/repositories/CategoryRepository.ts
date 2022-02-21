@@ -30,7 +30,6 @@ class CategoryRepository implements ICategoriesRepository{
     }
 
     list(): Category[] {
-        console.log(this.categories)
         return this.categories
     }
     findByName(name: string): Category{
