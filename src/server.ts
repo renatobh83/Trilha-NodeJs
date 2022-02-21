@@ -1,7 +1,6 @@
 import express from "express"
 import { router } from "./routes"
-import { categoriesRoutes } from "./routes/categories"
-import { specificationRoute } from "./routes/specification"
+import "./database"
 
 const app = express()
 
