@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { ICarRepository } from "../../src/modules/cars/repositories/Implementations/ICarsRepository";
+import { ICarRepository } from "../../../repositories/Implementations/ICarsRepository";
 
 interface IRequest {
     name:string
