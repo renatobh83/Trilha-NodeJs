@@ -10,7 +10,7 @@ const router = Router()
 
 router.use(categoriesRoutes)
 router.use(specificationRoute)
-router.use(userRouter)
+router.use("/users", userRouter)
 router.use(authenticateRoutes)
 
 export { router}
