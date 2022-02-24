@@ -16,7 +16,9 @@ class CreateCarsUseCase{
     constructor(@inject("CarsRepository") private carsRepository:ICarRepository){}
 
     async execute({brand,category_id,daily_rate,description,fine_amount,license_plate,name}:IRequest): Promise<void> {
-
+        
+        this.carsRepository.create({ brand, category_id, daily_rate,description,fine_amount,license_plate, name})
+       
     }
 }
 

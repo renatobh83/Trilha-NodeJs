@@ -11,17 +11,18 @@ describe("Create Car", () => {
         createCarUseCase = new CreateCarsUseCase(carsRepositoryInMemory)
     })
     it("Should be able to create a car", async () => {
-        await createCarUseCase.execute(
-            {
-                name: "Argo",
-                description: "carro bom",
-                daily_rate: 100,
-                license_plate: "ABC-1234",
-                fine_amount: 60,
-                brand: "FIAT",
-                category_id: "string"
-            }
-
-        )
+        const car  = { 
+        name: "Argo",
+        description: "carro bom",
+        daily_rate: 100,
+        license_plate: "ABC-1234",
+        fine_amount: 60,
+        brand: "FIAT",
+        category_id: "string"}
+       
+       await createCarUseCase.execute(car)
+       
+       const create = await carsRepositoryInMemory.findByName(car.name)
+       expect(create).toHaveProperty("id")
     })
 })
