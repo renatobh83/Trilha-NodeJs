@@ -1,4 +1,4 @@
-import { Car } from "../../entities/Car";
+import { Car } from "../../infra/typeorm/entities/Car";
 
 interface ICarsDTO{
     name:string
@@ -11,8 +11,9 @@ interface ICarsDTO{
 }
 
 interface ICarRepository {
-     create(data:ICarsDTO): Promise<void>
-     findByName(name:string): Promise<Car>
+     create(data:ICarsDTO): Promise<Car>
+     findByName(name:string): Promise<Car[]>
+     findByLicensePlate(license_plate:string): Promise<Car>
 }
 
 export { ICarRepository, ICarsDTO}

@@ -39,7 +39,7 @@ export class CreateCars1645644775110 implements MigrationInterface {
                     type:"numeric",
                 },
                 {
-                    name: "brant",
+                    name: "brand",
                     type:"varchar",
                 },
                 {

@@ -1,11 +1,11 @@
 import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express"
 import "express-async-errors"
-import "./shared/container"
-import "./database"
+import "../../container"
+import "../typeorm"
 
 import { router } from "./routes"
-import { AppError } from "./erros/AppError";
+import { AppError } from "../../errors/AppError";
 
 
 

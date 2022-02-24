@@ -1,5 +1,6 @@
 import {v4 as uuid} from "uuid";
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm"
+import { Category } from "./Category";
 
 @Entity("cars")
 class Car {
@@ -25,7 +26,17 @@ class Car {
     @Column()
     brand: string
 
+    @Column()
+    available: boolean
+
     @CreateDateColumn()
+    created_at: Date
+    
+    @ManyToOne(()=> Category)
+    @JoinColumn({name: "category_id"})
+    category: Category
+
+    @Column()
     category_id: string
 
 
@@ -33,6 +44,7 @@ class Car {
         if(!this.id)
         {
             this.id = uuid()
+            this.available = true
         }
     }
 }
