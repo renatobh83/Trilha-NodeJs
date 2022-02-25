@@ -1,25 +1,30 @@
 import { hash } from "bcryptjs"
-import {createConnection, getConnection} from "typeorm"
-import {v4 as uuid} from "uuid"
+import { createConnection, getConnection } from "typeorm"
+import { v4 as uuid } from "uuid"
 
 
 
 
- function create() {
-    return new Promise(async (reject, resolve)=>{
-        createConnection()
+async function create() {
+
+    createConnection().then(async () => {
+
         const connection = getConnection()
-        const id  = uuid()
-        const password = await hash("admin",8)
-        console.log(password)
-        await connection.query(
-            `INSERT INTO USERS(ID,NAME,EMAIL,PASSOWORD,ADMIN,CREATED_AT)
-                values('${id}', 'admin','admin@admin.com', '${password}', true, ${new Date()})
-            `
-            
-            )
+
+        const isConnect: boolean = connection.isConnected
+
+        if (isConnect) {
+
+            const id = uuid()
+            const password = await hash("admin", 8)
+            const query =    `INSERT INTO users(ID,NAME,EMAIL,password,isAdmin,driver_license,CREATED_AT)
+            values('${id}', 'admin','admin@admin.com', '${password}', true,'123', ${new Date().getTime()})
+        `
+            await connection.query(query)
+        }
+
+        await connection.close()
     })
-    
 }
 
-create().then(()=> console.log("ll"))
+create()
