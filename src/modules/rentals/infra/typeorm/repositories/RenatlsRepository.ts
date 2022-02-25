@@ -5,21 +5,28 @@ import { Rentals } from "../entities/Rentals";
 class RentalsRepository implements IRentalRespository {
     private repository: Repository<Rentals>
 
-    constructor(){
+    constructor() {
         this.repository = getRepository(Rentals)
     }
-    create({car_id,expected_return_date,user_id}: ICreateRentalDTO): Promise<Rentals> {
-        throw new Error("Method not implemented.");
+    async create({ car_id, expected_return_date, user_id }: ICreateRentalDTO): Promise<Rentals> {
+      const rental = this.repository.create({
+        car_id, expected_return_date, user_id
+      })
+
+      await this.repository.save(rental)
+      return rental
     }
 
 
-    findOpenRentalByCar(car_id: string): Promise<Rentals> {
-        throw new Error("Method not implemented.");
+    async findOpenRentalByCar(car_id: string): Promise<Rentals> {
+        const openByCar = await this.repository.findOne({ car_id })
+        return openByCar
     }
-    findOpenRentalByUser(user_id: string): Promise<Rentals> {
-        throw new Error("Method not implemented.");
+    async findOpenRentalByUser(user_id: string): Promise<Rentals> {
+        const openByUser = await this.repository.findOne({ user_id })
+        return openByUser
     }
 }
 
 
-export {RentalsRepository}
+export { RentalsRepository }
