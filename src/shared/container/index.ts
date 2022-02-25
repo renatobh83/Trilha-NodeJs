@@ -11,7 +11,7 @@ import { ICarsImageRepository } from "../../modules/cars/repositories/Implementa
 import { CarsImageRepository } from "../../modules/cars/infra/typeorm/repositories/CarsImageRepository";
 import { IRentalRespository } from "../../modules/rentals/repositories/IRentalRepository";
 import { RentalsRepository } from "../../modules/rentals/infra/typeorm/repositories/RenatlsRepository";
-
+import "."
 
 container.registerSingleton<ICategoriesRepository>(
     "CategoryRepository",CategoryRepository
