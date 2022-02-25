@@ -1,5 +1,5 @@
 import { CategoryRepositoriesInMemory } from "../src/modules/cars/repositories/in-memory/CategoryRepositoriesInMemory"
-import { CreateCategoryUseCase } from "../src/modules/cars/useCases/Category/createCategory/CreateCategoryUseCase"
+import { CreateCategoryUseCase } from "../src/modules/cars/useCases/createCategory/CreateCategoryUseCase"
 
 
 let createCategoryUseCase: CreateCategoryUseCase

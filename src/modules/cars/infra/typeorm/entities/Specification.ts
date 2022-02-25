@@ -11,7 +11,7 @@ class Specification {
     description: string;
    
     @PrimaryColumn()
-    id?: string;
+    id: string;
    
     @CreateDateColumn()
     created_at: Date

@@ -1,8 +1,8 @@
 import {Router} from "express"
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticate"
 
-import { CreateSpecificationController } from "../../../../modules/cars/useCases/Spectification/createSpecifitaion/CreateSpecifictionController"
-import { ListSpecificationsController } from "../../../../modules/cars/useCases/Spectification/listSpecification/ListSpecificationController"
+import { CreateSpecificationController } from "../../../../modules/cars/useCases/createSpecifitaion/CreateSpecifictionController"
+import { ListSpecificationsController } from "../../../../modules/cars/useCases/listSpecification/ListSpecificationController"
 
 
 

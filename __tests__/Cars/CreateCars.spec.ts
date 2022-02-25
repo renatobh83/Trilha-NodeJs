@@ -1,6 +1,6 @@
 import { AppError } from "../../src/shared/errors/AppError"
 import { CarsRepositoryInMemory } from "../../src/modules/cars/repositories/in-memory/CarsRepositoryInMemory"
-import { CreateCarsUseCase } from "../../src/modules/cars/useCases/Cars/CreateCars/CreateCarsUseCase"
+import { CreateCarsUseCase } from "../../src/modules/cars/useCases/CreateCars/CreateCarsUseCase"
 
 
 let createCarUseCase: CreateCarsUseCase

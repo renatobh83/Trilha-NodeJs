@@ -6,11 +6,12 @@ export class CreateSpecification1645548028879 implements MigrationInterface {
        await queryRunner.createTable(
             new Table({
                 name: "specifications",
-                columns:[{
+                columns:[
+                    {
                     name: "id",
                     type:"uuid",
                     isPrimary: true
-                },
+                    },
                     {
                         name: "name",
                         type: "varchar"
