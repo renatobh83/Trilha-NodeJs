@@ -1,9 +1,10 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../shared/errors/AppError";
-import { Rentals } from "../infra/typeorm/entities/Rentals";
-import { IRentalRespository } from "../repositories/IRentalRepository";
+import { AppError } from "../../../../shared/errors/AppError";
+import { Rentals } from "../../infra/typeorm/entities/Rentals";
+import { IRentalRespository } from "../../repositories/IRentalRepository";
 import dayjs from "dayjs"
-import { IDateProvider } from "../../../shared/container/providers/DateProvider/IDateProvider";
+import { IDateProvider } from "../../../../shared/container/providers/DateProvider/IDateProvider";
+import { ICarRepository } from "../../../cars/repositories/Implementations/ICarsRepository";
 interface IRequest {
     user_id: string
     car_id: string
@@ -17,7 +18,10 @@ class CreateRentalUseCase {
     constructor(
         @inject("RentalsRepository")
         private rentalsReposity: IRentalRespository,
-        private dateProvider: IDateProvider
+        @inject("DayjsDateProvider")
+        private dateProvider: IDateProvider,
+        @inject("CarsRepository")
+        private carsRepository: ICarRepository
     ) { }
 
 
@@ -34,7 +38,7 @@ class CreateRentalUseCase {
         if (rentalOpenToUser) {
             throw new AppError("There is a rental in progressa for user")
         }
-
+        console.log(expected_return_date)
 
         const dateNow = this.dateProvider.dateNow()
         const compare = this.dateProvider.comrpareInHours( dateNow,expected_return_date)
@@ -45,9 +49,10 @@ class CreateRentalUseCase {
 
         const rental = await this.rentalsReposity.create({
             user_id,
-            car_id, expected_return_date
+            car_id, 
+            expected_return_date
         })
-
+        await this.carsRepository.updateAvailable(car_id, false)
         return rental
     }
 }

@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm"
 import {v4 as uuid} from "uuid"
 
 
@@ -14,11 +14,13 @@ class Rentals {
     @Column()
     user_id:string
 
-
+    @Column()
     start_date:Date
 
+    @Column()
     end_date:Date
-
+    
+    @Column()
     expected_return_date:Date
     
     @Column()
@@ -27,12 +29,14 @@ class Rentals {
     @CreateDateColumn()
     created_at:Date
 
+    @UpdateDateColumn()
     updated_at:Date
 
 
     constructor(){
     if(!this.id) {
         this.id = uuid()
+        this.start_date = new Date()
     }
     }
 }
