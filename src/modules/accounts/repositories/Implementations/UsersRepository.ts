@@ -1,7 +1,8 @@
 import { getRepository, Repository } from "typeorm";
-import { User } from "../infra/typeorm/entities/User";
-import { ICreateUserDTO, IUsersRepository } from "./IUsersRepository";
+import { User } from "../../infra/typeorm/entities/User";
+
 import {hash} from "bcryptjs"
+import { ICreateUserDTO, IUsersRepository } from "../IUsersRepository";
 class UsersRepository implements IUsersRepository {
     private repository: Repository<User>
 
