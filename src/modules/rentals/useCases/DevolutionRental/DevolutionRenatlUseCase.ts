@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { IDateProvider } from "../../../../shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "../../../../shared/errors/AppError";
 import { ICarRepository } from "../../../cars/repositories/Implementations/ICarsRepository";
+import { Rentals } from "../../infra/typeorm/entities/Rentals";
 import { IRentalRespository } from "../../repositories/IRentalRepository";
 
 interface IRequest {
@@ -13,27 +14,45 @@ interface IRequest {
 @injectable()
 class DevolutionRentalUseCase {
     constructor(
-        @inject("RentalRepository")
+        @inject("RentalsRepository")
         private rentalRepository: IRentalRespository,
-        @inject("CarRepository") 
+        @inject("CarsRepository") 
         private carRepository: ICarRepository,
         @inject("DayjsDateProvider")
         private dayjsDateProvider: IDateProvider
     ){}
 
 
-    async execute({id, user_id}: IRequest): Promise<void>{
+    async execute({id, user_id}: IRequest): Promise<Rentals>{
         const rental = await this.rentalRepository.findById(id);
-
+        const car = await this.carRepository.findById(rental.car_id)
         if(!rental){
             throw new AppError("Rentals does not exist")
         }
 
-        const dateNow = this.dayjsDateProvider.dateNow();
+        let daily = this.dayjsDateProvider.compareInDays(rental.start_date, this.dayjsDateProvider.dateNow())
+        
+        if(daily <= 0) {
+            daily = 1
+        }
+        const delay = this.dayjsDateProvider.compareInDays( rental.expected_return_date, this.dayjsDateProvider.dateNow())
 
-        const compare = this.dayjsDateProvider.compareInHours(dateNow, rental.expected_return_date)
+        let total = 0
+        if(delay > 0){
+            const calculate_fine = delay * car.fine_amount
+            total = calculate_fine
+        }
+        total += daily * car.daily_rate
 
+        rental.end_date = this.dayjsDateProvider.dateNow()
+
+        rental.total = total
+
+        await this.rentalRepository.create(rental)
+        await this.carRepository.updateAvailable(car.id, true)
       
+
+        return rental
     }
 
 }

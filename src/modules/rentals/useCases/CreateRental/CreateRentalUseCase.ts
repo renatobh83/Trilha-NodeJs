@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../shared/errors/AppError";
 import { Rentals } from "../../infra/typeorm/entities/Rentals";
 import { IRentalRespository } from "../../repositories/IRentalRepository";
-import dayjs from "dayjs"
+
 import { IDateProvider } from "../../../../shared/container/providers/DateProvider/IDateProvider";
 import { ICarRepository } from "../../../cars/repositories/Implementations/ICarsRepository";
 interface IRequest {
@@ -41,7 +41,7 @@ class CreateRentalUseCase {
         console.log(expected_return_date)
 
         const dateNow = this.dateProvider.dateNow()
-        const compare = this.dateProvider.comrpareInHours( dateNow,expected_return_date)
+        const compare = this.dateProvider.compareInHours( dateNow,expected_return_date)
 
         if (compare < rentalHoursMin) {
             throw new AppError("Invalid return time")

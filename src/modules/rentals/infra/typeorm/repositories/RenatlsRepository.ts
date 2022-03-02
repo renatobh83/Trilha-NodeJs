@@ -9,9 +9,9 @@ class RentalsRepository implements IRentalRespository {
         this.repository = getRepository(Rentals)
     }
  
-    async create({ car_id, expected_return_date, user_id }: ICreateRentalDTO): Promise<Rentals> {
+    async create({ car_id, expected_return_date, user_id,end_date,id,total }: ICreateRentalDTO): Promise<Rentals> {
       const rental = this.repository.create({
-        car_id, expected_return_date, user_id
+        car_id, expected_return_date, user_id,end_date,id,total
       })
 
       await this.repository.save(rental)

@@ -18,15 +18,12 @@ class UploadCarImageController{
 
         const fileNames = images.map(file => file.filename)
 
-        await uploadCarImageUseCase.execute({
-            car_id: id,
-            images_name: fileNames
-        })
-
-
-
-
-
+    
+            await uploadCarImageUseCase.execute({
+                car_id: id,
+                images_name: fileNames
+            })
+       
         return response.status(201).send()
     }
 }
