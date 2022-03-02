@@ -16,7 +16,7 @@ router.use(specificationRoute)
 router.use("/users", userRouter)
 router.use("/cars", carRoutes)
 router.use("/rentals",rentalRoute)
-router.use(passwordRoutes)
+router.use("/password",passwordRoutes)
 router.use(authenticateRoutes)
 
 export { router}
