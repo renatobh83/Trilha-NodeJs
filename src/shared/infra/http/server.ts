@@ -6,6 +6,7 @@ import "../typeorm"
 
 import { router } from "./routes"
 import { AppError } from "../../errors/AppError";
+import upload from "../../../config/upload";
 
 
 
@@ -17,7 +18,8 @@ app.use(express.json())
 
 app.use(router)
 app.get("/",(req, res)=> res.json({message: "Hello Word Get"}))
-
+app.use("/avatar",express.static(`${upload.tmpFolder}/avatar`))
+app.use("/cars",express.static(`${upload.tmpFolder}/cars`))
 
 app.use((err: Error, request:Request, response: Response, next: NextFunction )=> {
     if(err instanceof AppError){

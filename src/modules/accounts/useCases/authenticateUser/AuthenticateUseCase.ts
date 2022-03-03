@@ -1,4 +1,4 @@
-import { compare } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import auth from "../../../../config/auth";
@@ -39,8 +39,9 @@ class AuthenticateUserUseCase{
             throw new AppError("User or Password invalid!")
         }
 
+    
         const passwordMatch = await compare(password, user.password)
-        
+       
         if(!passwordMatch){
             throw new AppError("User or Password invalid!")
         }

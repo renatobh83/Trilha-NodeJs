@@ -3,7 +3,7 @@ import { IDateProvider } from "../../../../shared/container/providers/DateProvid
 import { AppError } from "../../../../shared/errors/AppError";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { IUsersTokensRepository } from "../../repositories/IUsersTokens Repository";
-import { hash } from "bcryptjs";
+
 
 interface IRequest {
     token: string
@@ -32,9 +32,9 @@ class ResetPassworUserUseCase {
         }
 
         const user = await this.usersRepository.findById(userToken.user_id)
-
-        user.password = await hash(password,8)
-
+        
+        user.password = password
+       
         await this.usersRepository.create(user)
 
         await this.usersTokensRepository.deleteById(userToken.id)

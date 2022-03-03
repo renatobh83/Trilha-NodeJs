@@ -40,7 +40,9 @@ class SendForgotPasswordMailUseCase {
             link: `${process.env.FORGOT_EMAIL_URL}${token}`
 
         }
-        await this.mailProvider.sendmail(email,"Recuperacao de senha",variables,templatePath)
+       const link  =  await this.mailProvider.sendmail(email,"Recuperacao de senha",variables,templatePath)
+
+          return link
     }
 }
 

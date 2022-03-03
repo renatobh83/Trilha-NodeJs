@@ -14,6 +14,7 @@ class UsersRepository implements IUsersRepository {
     async create({name,driver_license,email,password ,avatar,id}: ICreateUserDTO): Promise<void> {
 
         const passwordHash = await hash(password,8)
+     
         const user = this.repository.create({
             driver_license,
             email,

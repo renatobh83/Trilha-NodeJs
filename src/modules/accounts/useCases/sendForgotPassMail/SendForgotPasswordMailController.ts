@@ -8,8 +8,8 @@ class SendForgotPasswordMailController {
 
         const { email } = request.body
 
-        await sendForgotPasswordMailUseCase.execute(email)
-        return response.json([])
+        const link = await sendForgotPasswordMailUseCase.execute(email)
+        return response.json(link)
     }
 }
 

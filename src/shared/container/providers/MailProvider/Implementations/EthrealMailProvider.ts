@@ -5,6 +5,8 @@ import fs from "fs"
 
 
 class EthrealMailProvider implements IMailProvider {
+ 
+ 
     private client: Transporter
     constructor(){
         nodemailer.createTestAccount().then(account =>{
@@ -21,7 +23,7 @@ class EthrealMailProvider implements IMailProvider {
             this.client  = tranporter
         }).catch(error => console.log(error))
     }
-     async sendmail(to: string, subject: string, variables:any, path:string): Promise<void> {
+     async sendmail(to: string, subject: string, variables:any, path:string): Promise<string> {
             const templateFileContent = fs.readFileSync(path).toString("utf-8")
 
             const templateParse = handlebars.compile(templateFileContent)
@@ -36,8 +38,8 @@ class EthrealMailProvider implements IMailProvider {
                 html: templateHtml
             })
 
-            console.log('Message sent: %s', message.messageId);
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
+            
+            return  nodemailer.getTestMessageUrl(message) as string
     }
 
 }
